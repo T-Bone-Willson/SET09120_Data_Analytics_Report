@@ -9,7 +9,7 @@
 % #######################################
 % #### YOU DON'T NEED TO TOUCH BELOW ####
 % #######################################
-\documentclass[10pt, a4paper]{article}
+\documentclass[12pt, a4paper]{article}
 \usepackage[a4paper,outer=1.5cm,inner=1.5cm,top=1.75cm,bottom=1.5cm]{geometry}
 \twocolumn
 \usepackage{graphicx}
@@ -123,7 +123,40 @@
     
     To turn larger data sets like "\textbf{age}" and "\textbf{credit\_amount}" into nominal data, we must start applying the data into clusters, to which we can then express with an appropriate nominal value.
     
-    Select "\textbf{age}" and use a numeric facet, select the range 19 to 26 then  Edit Cell > Transform the selected range to "18<=X<26". From here on, repeat the previous steps but work with range increments of 10. For example,  26 to 36 ("26<=X<36"), 36 to 46 ("26<=X<46"). Do this till you get to the end of the range "76". By doing this, the data will be turned into "text" data and will be identifiable clusters of ranged data.
+    Select "\textbf{age}" and use a numeric facet, select the range 19 to 26 then  Edit Cell > Transform the selected range to "18<=X<26". From here on, repeat the previous steps but work with range increments of 10. For example,  26 to 36 ("26<=X<36"), 36 to 46 ("26<=X<46"). Do this till you get to the end of the range "76". By doing this, the data will be turned into "text" data and will be identifiable clusters of ranged data that we can work with.
+    
+    Select "\textbf{credit\_amount}", and do a numeric facet. We follow almost the same steps that we did for \textbf{age} but we break down the range to 2000 increments. I.e. 0 to 2000 will be "0<=X=2000". We do this all the way up to 20,000. Also, there are no records of data within the range of 16,000 to 18,000. So, do not worry about trying to create this range. You will be left with 9 instance categories of "\textbf{credit\_amount}", which can be seen in \textbf{appendix 4}.
+    
+    All data (apart from \textbf{case\_no}) has been turned into nominal data. Export the file into a excel ".xlsx" file and then open it in word. Save the the file and then open it in your preferred text editor. Similar to what we did previously in (\textbf{appendix 1}), we now have to state which "attributes" are "real" (numeric) and which attributes are  nominal ({"26<=X<36", "26<=X<46"}). \textbf{case\_no} should be the only "real" attribute there. Look at \textbf{appendix 5} to see how the ".txt" file should look. Now save thew file and convert it into a ".arff" file. You now have a mostly nominal ".arff" file which can be interacted within Weka.
+    
+    \section{Weka}
+    The three areas we'll be analysing the data from our newly created ".arff" files are "\textbf{Classification}" with the \textbf{48} Algorithm, "\textbf{Association}", with the \textbf{Apriori} Algorithm and finally "\textbf{Clusters}" with the \textbf{simpleKmeans} algorithm.
+    
+    \subsection{Classification}
+    Load the nominal values only ".arff" file into weka. When using the classification rule set, having a mix of numerics and nominals can muddle the data a bit. Once the file has been loaded, go to the "Select Attribute" tab located at the top right of the Weka interface. Then choose "CorrelationAttributeEval" (evaluates the worth of an attribute by measuring the correlation between it and the class) from the "Attribute Evaluator" terminal. Make sure "(Nom) class" is chosen and then click start. The following results will then be produced; Review Appendix 6 
+    
+    From here, we identify the ones which are ranked poorly (highest \textbf{entropy}), "\textbf{age}", "\textbf{num\_dependents}", "\textbf{case\_no}" and "\textbf{job}". This is so we can then remove them from our data set before proceeding to the \textbf{Classification} stage. Go back to the "Preprocess" tab and proceed to remove the previously mentioned attributes from the data set.
+    
+    Go to the "\textbf{Classify}" tab on the Weka interface and choose the "\textbf{J48}" algorithm from "trees" directory within the "Classifier" interface. Click on "J48" and a new menu will appear, look for "MinNumObj" then change the value from 2 to 10 (\textbf{Appendix 7}). After the changes, exit that sub menu and make sure "(Nom) Class"  is selected, then click "Start" to begin the calculations.
+    
+    From output screen there are a number of factors to consider, they are the "\textbf{Correctly and Incorrectly Classified Instances}" and the "\textbf{Confusion Matrix}". From looking at the correctly and incorrectly classified instances (\textbf{Appendix 8}), you can see that 73\% instances have been calculated correctly and 27\% incorrectly. This percentage ratio is not ideal, but even if you decrease (reducing the "MinNumObj" number) the number of leaves and size of the tree to below the 30's (currently at Leaves: 40, size of Tree: 46). These percentages only changes from 1 to 3\%.  From looking at the "\textbf{Confusion Matrix}" (\textbf{Appendix 9}), you can see that 623 instances has been predicted as good and a 107 instances have been predicted classified as bad. But upon further inspection it is stated that in fact 77 instances were identified as bad when in fact they were good, but more alarmingly, there is 193 instances which are stated as good, when they are actually bad. Obviously the assessment of incorrectly identified "good" instances takes more precedence than the incorrectly predicted "bad" instances due to the larger size difference.
+    
+    Right click on the "Result List" and select visualize tree, from here (\textbf{Appendix 10}) you should be able to identify some common rules within the data presented.
+    
+    \textbf{Rule 1}: \textbf{If} Checking Status = No Checking, \textbf{Then} Class = good. This rule has a coverage of 394 with an accuracy of 88\%
+    
+    \textbf{Rule 2}: \textbf{If} Checking Status = 0<=X<200 \textbf{And} Credit Amount = 0<=X<2000, \textbf{Then} Class = good. This rule has a coverage of 106 and an accuracy of 62\%.
+    
+    \textbf{Rule 3}: \textbf{If} Checking Status = <0 \textbf{And} Credit History = Existing Paid \textbf{And} Purpose = New Car, \textbf{Then} class = bad. This rule has a coverage of 42 with an accuracy of 64\%.
+    
+    \textbf{Rule 4}: \textbf{If} Checking Status = 0<=X<200 \textbf{And} Credit Amount = 2000<=X<4000, \textbf{Then} Class = good. This rule has a coverage of 77 with an accuracy of 72/%.
+    
+    \textbf{Rule 5}: \textbf{If} Checking Status = >=200, \textbf{Then} Class = good. This rule has a coverage of 63 with an accuracy of 77\%.
+    
+    \textbf{Rule 6}: \textbf{If} Checking Status = <0 \textbf{And} Credit History = Critical/Other Existing Credit, \textbf{Then} Class = good. This rule has a coverage of 67 and an accuracy of 73\%.
+    
+    What can be taken from looking at these rules is that having "No Checking" greatly increases your chance to receive a loan. This is probably due to the fact that if the bank does not already have you as a customer, then they want to make you a customer.
+    
     
     
     
@@ -136,6 +169,16 @@
 	
 	
 
+	\section{Appendix}
+	\figuremacro{h}{appendix1}{Appendix 1}{ - Data Prep, Nominal and Numeric}{1.0}
+	\figuremacro{h}{appendix2}{Appendix 2}{ - Data Prep, Nominal attribute value}{1.0}
+	\figuremacro{h}{appendix3}{Appendix 3}{ - Data Prep, Numeric attribute value}{1.0}
+	\figuremacro{h}{appendix4}{Appendix 4}{ - Data Prep, Credit Amount instances}{1.0}
+	\figuremacro{h}{appendix5}{Appendix 5}{ - Data Prep, Nominal txt file}{1.0}
+	\figuremacro{h}{appendix6}{Appendix 6}{ - Classification, Ranked Attributes}{1.0}
+	\figuremacro{h}{appendix7}{Appendix 7}{ - Classification, MinNumObj}{1.0}
+	\figuremacro{h}{appendix8}{Appendix 8}{ - Classification, Instances}{1.0}
+	\figuremacro{h}{appendix9}{Appendix 9}{ - Classification, Confusion Matrix}{1.0}
 	
 	
 \bibliographystyle{ieeetr}
