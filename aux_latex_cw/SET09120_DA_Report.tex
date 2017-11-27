@@ -143,23 +143,63 @@
     
     Right click on the "Result List" and select visualize tree, from here (\textbf{Appendix 10}) you should be able to identify some common rules within the data presented.
     
-    \textbf{Rule 1}: \textbf{If} Checking Status = No Checking, \textbf{Then} Class = good. This rule has a coverage of 394 with an accuracy of 88\%
+    \textbf{Rule 1}: \textbf{If} Checking Status = No Checking, \textbf{Then} Class = Good. This rule has a coverage of 394 with an accuracy of 88\%
     
-    \textbf{Rule 2}: \textbf{If} Checking Status = 0<=X<200 \textbf{And} Credit Amount = 0<=X<2000, \textbf{Then} Class = good. This rule has a coverage of 106 and an accuracy of 62\%.
+    \textbf{Rule 2}: \textbf{If} Checking Status = 0<=X<200 \textbf{And} Credit Amount = 0<=X<2000, \textbf{Then} Class = Good. This rule has a coverage of 106 and an accuracy of 62\%.
     
-    \textbf{Rule 3}: \textbf{If} Checking Status = <0 \textbf{And} Credit History = Existing Paid \textbf{And} Purpose = New Car, \textbf{Then} class = bad. This rule has a coverage of 42 with an accuracy of 64\%.
+    \textbf{Rule 3}: \textbf{If} Checking Status = <0 \textbf{And} Credit History = Existing Paid \textbf{And} Purpose = New Car, \textbf{Then} class = Bad. This rule has a coverage of 42 with an accuracy of 64\%.
     
-    \textbf{Rule 4}: \textbf{If} Checking Status = 0<=X<200 \textbf{And} Credit Amount = 2000<=X<4000, \textbf{Then} Class = good. This rule has a coverage of 77 with an accuracy of 72/%.
+    \textbf{Rule 4}: \textbf{If} Checking Status = 0<=X<200 \textbf{And} Credit Amount = 2000<=X<4000, \textbf{Then} Class = Good. This rule has a coverage of 77 with an accuracy of 72/%.
     
-    \textbf{Rule 5}: \textbf{If} Checking Status = >=200, \textbf{Then} Class = good. This rule has a coverage of 63 with an accuracy of 77\%.
+    \textbf{Rule 5}: \textbf{If} Checking Status = >=200, \textbf{Then} Class = Good. This rule has a coverage of 63 with an accuracy of 77\%.
     
-    \textbf{Rule 6}: \textbf{If} Checking Status = <0 \textbf{And} Credit History = Critical/Other Existing Credit, \textbf{Then} Class = good. This rule has a coverage of 67 and an accuracy of 73\%.
+    \textbf{Rule 6}: \textbf{If} Checking Status = <0 \textbf{And} Credit History = Critical/Other Existing Credit, \textbf{Then} Class = Good. This rule has a coverage of 67 and an accuracy of 73\%.
     
     What can be taken from looking at these rules is that having "No Checking" greatly increases your chance to receive a loan. This is probably due to the fact that if the bank does not already have you as a customer, then they want to make you a customer.
     
+    \subsection{Association}
+    Association only takes text data, so the ".arff" data file that only contains nominal values must be used. Load that up and proceed to remove "\textbf{case\_no}", due to it being a numeric value. Also remove "\textbf{num\_dependents}" and "\textbf{existing\_credits}" too, because those two attributes seem to manipulate the data in undesirable ways.
     
+    Click on the "Associate" tab and choose the "\textbf{Apriori}" algorithm, and then click "Start". The algorithm will then produce us the best rules from the attributes given. \textbf{Appendix 11} shows these rules printed out, but I will state the best 6 rules from the appendix after this paragraph and it's calculated coverage and confidence values.
     
+    \textbf{Rule 1}: \textbf{If} Checking Status = No Checking \textbf{And} Purpose = Radio/Tv, \textbf{Then} Class = Good. This rule has a coverage of 120 and a confidence/accuracy value at 0.94
     
+    \textbf{Rule 2}: \textbf{If} Checking Status = No Checking \textbf{And} Credit History = Critical/Other Existing Credit, \textbf{Then} Class = Good. This rule has a coverage of 143 and a confidence/accuracy value of 0.93.
+    
+    \textbf{Rule 3}: \textbf{If} Checking Status = No Checking \textbf{And} employment = >=7. \textbf{Then} Class = Good. This rules has a coverage of 107 and a confidence/accuracy value of 0.93.
+    
+    \textbf{Rule 4}: \textbf{If} Checking Status = No Checking \textbf{And} Personal Status = Male Single \textbf{And} Job = Skilled, \textbf{Then} Class = Good. This rule has a coverage of 139 and a confidence/accuracy value of 0.93.
+    
+    \textbf{Rule 5}: \textbf{If} Checking Status = No Checking \textbf{And} Credit Amount = 0<=X<2000 \textbf{And} Job = Skilled. \textbf{Then} Class = Good. This rule has a coverage of 105 and a confidence/accuracy value of 0.92
+    
+    \textbf{Rule 6}: \textbf{If} Checking Status = No Checking \textbf{And} Credit Amount = 0<=X<2000, \textbf{Then} Class = Good. This rule has a coverage of 156 and a confidence/accuracy value of 0.92.
+    
+    It can obviously been seen that if the customer has not had any account with the bank, then they are categorized as a good customer. Just like the \textbf{Classification} algorithm showed.
+    
+    \subsection{Clustering}
+    The "\textbf{SimpleKMeans}" algorithm in Clustering can handle nominal and numeric values. So load up the ".arff" file which contains both those data types. From here remove the attributes that we had removed from Association; \textbf{case\_no}, \textbf{num\_dependents} and \textbf{existing\_credits}.
+    
+    In the "\textbf{Cluster}" tab, select the algorithm \textbf{SimpleKMeans} and click on it again to open a sub menu of it. From here we have to change two values; The number of Clusters the algorithm produces (this is help diverse and spread the data calculation across a wider spread) and the Seed. Change the number of Clusters to 4; \textbf{Appendix 12}. And change the number of Seeds to 20; \textbf{Appendix 13}.
+    
+    Proceed to click "\textbf{Start}" and a table producing a set of results spread along 4 clusters is shown; \textbf{Appendix 14}. At a quick glimpse of the results, we can see that cluster 0 and 3 (1 and 4) are classed as "bad" while cluster 1 and 2 (2 and 3) are classed as "good". Later we'll look into some rules that can be generated from these results. By scrolling down we can see the results for "\textbf{Clustered Instances}", \textbf{Appendix 15}. Here it shows the number of instances from the total of the data (1000) occurred and placed in which cluster. We can see that cluster 1 and 3 are very similar with a 5\% difference between them. Cluster 2 however is the most predominant one within the data set, with it occurring 39\% of the time.
+    
+    If we wanted to visualize the data in correlation to how predominant the properties "\textbf{Good}" and "\textbf{Bad}" are in relation to which cluster they occur in, then we can do that by right clicking on the results lists and select visualize tree. From here we choose the values of our X and Y range and what property they will output on the graph. For the X coordinate select "X: Cluster (Nom)", for the Y coordinate select "Y: Class (Nom)" and for the property output choose "Colour: class (Nom)". Then move the "Jitter" slider bar to the far right. \textbf{Appendix 16} shows the visualisation of the data. Here it's made evident that there are higher cases of "Bad" in cluster 0 and 3 than there is in cluster 1 and 2.
+    
+    From looking at all the data provided, the following rules can be extracted;
+    
+    \textbf{Rule 1}: Checking Status = No Checking \textbf{And} Class = good, in cluster 1 and 2. But in clusters 0 and 3, Checking Status = to not "No Checking". Essentially, the Checking Status result "\textbf{No Checking}" is a major benefactor to making the Class value = "\textbf{Good}".
+    
+    \textbf{Rule 2}: Employment length doesn't seem to effect if the Class = Good. Each Cluster has different employment length values and so no continuity/patter can be established.
+    
+    \textbf{Rule 3}: Saving Status across all clusters = <100.
+    
+    \textbf{Rule 4}: The results Male Single from "\textbf{Personal Status}" and Skilled from "\textbf{Job}" are both apparent in clusters 1 and 2. Which have the class value set at \textbf{Good}. They both don't show up together in clusters 0 and 3. Interestingly enough, these results align with rule 4 from \textbf{Association} rule set.
+    
+    \textbf{Rule 5}: It is unclear if "\textbf{Purpose}" has a large effect on the outcome of Class. Reason being, in cluster 0 and 1, the purpose is the same but in cluster 2 and 3, the purpose are different.
+    
+    As can be seen, which is a common pattern that's been established now; If the customer has No Checking status, then they are categorized as good. Also There may be a correlation between what job and personal status the customer has, which dictates what class they end up at. The pattern seems to be: 
+    
+    \textbf{If} job = Skilled \textbf{And} Personal Status = Male Single, \textbf{Then} Class = Good.
     
     
     
@@ -179,6 +219,14 @@
 	\figuremacro{h}{appendix7}{Appendix 7}{ - Classification, MinNumObj}{1.0}
 	\figuremacro{h}{appendix8}{Appendix 8}{ - Classification, Instances}{1.0}
 	\figuremacro{h}{appendix9}{Appendix 9}{ - Classification, Confusion Matrix}{1.0}
+	\figuremacro{h}{appendix10}{Appendix 10}{ - Classification, Visualize Tree}{2.0}
+	\figuremacro{h}{appendix11}{Appendix 11}{ - Association, Best Rules}{1.0}
+	\figuremacro{h}{appendix12}{Appendix 12}{ - Clustering, Number of Clusters}{1.0}
+	\figuremacro{h}{appendix13}{Appendix 13}{ - Clustering, Number of Seeds}{1.0}
+	\figuremacro{h}{appendix14}{Appendix 14}{ - Clustering, Cluster Results}{1.0}
+	\figuremacro{h}{appendix15}{Appendix 15}{ - Clustering, Cluster Instances}{1.0}
+	\figuremacro{h}{appendix16}{Appendix 16}{ - Clustering, Visualize Data}{1.0}
+	
 	
 	
 \bibliographystyle{ieeetr}
