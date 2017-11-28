@@ -223,27 +223,74 @@
     \subsection{Choice for R}
     I have decided to use the "\textbf{Grouped Bar Chart}" for my R diagram. The main reason being that is is easy to compare the number of instances in each class value to the different Checking Status values. And it also labels/categorises all the data the reader needs to know, in a very concise and orderly fashion.
     
+    \subsection{R}
+    Unfortunately due to time constraints, and lack of knowledge, I was unable to create the grouped bar chart in R.
     
+    \section{Conclusion}
+    It has been stated numerous times throughout the report, but the relation between if the customer already has a pre existing account with the bank is a big influencer on if the bank will grant them a loan or not. If they don't have an account, there is a high chance that the bank will grant them one, in order to initially grab them as a customer, who may later request additional loans in the future; To which the bank could then capitalize from. An interesting pattern that did surface from the "\textbf{Clustering}" algorithm though was if the customer was \textbf{Male Single} and had a "\textbf{Skilled}" job then they would have higher chances to be  as "\textbf{Good}". This particular pattern can be seen from rule 4 of \textbf{Association} and rule 4 of \textbf{Clustering}.
     
+    Out of all the algorithms used, I find that \textbf{Classification} and \textbf{Clustering} were the most useful algorithms from distinguishing the patterns I was looking for, i.e how does Checking Status effect the outcome of the class. Classification was simple to implement within the data set and the visualized tree (\textbf{Appendix 10}) helped me identify that there was a large amount of coverage in regards to "\textbf{No Checking}" effecting the outcome of Class to be "\textbf{Good}". Also it was noted from the Confusion Matrix and Incorrectly Classified Instances (\textbf{Appendix 7} \& \textbf{Appendix 8}), that there was a large amount of data that has been misidentified as "\textbf{Bad}" when in fact they were Good. The Incorrectly Classified Instances is at 27\%, so there is either something wrong with how the bank identifies what counts as "Good" from them, or I have cleaned, prepared and analysed the data wrong. Clustering was useful from a visual and analytical point. I was able to distinguish visually how often class values appeared under different conditions (\textbf{Appendix 16}) via the 4 clusters. Also from looking at the Cluster Results (\textbf{Appendix 14}) I was able to identify the pattern of Male Single and Skilled, in correlation to rule 4 of \textbf{Association}.
     
+    From a visual stand point, I believe the Grouped Bar Chart would be the most fitting way to present my findings in regards to the question I am asking. It is easy to compare the amount of instances that happen under each Checking Status and it portrays that having "No Checking" is extremely advantageous in regards to getting a loan. Also from looking at the sketch (\textbf{Appendix 18}) and the Weka Visualizer (\textbf{Appendix 17}), it can be said that from the "<0" to "0<=X<200" range, checking status does not seem to have much influence in the decision to give out a loan (maybe this is where "Skilled" and "Male Single" comes into play), but if the Checking Status is ">=200" then that does influence the decision to be "Bad".
     
-    
- 
-	
-	
+    In a nut shell, Classification is useful to identify the number of occurrence (coverage) of a rule set, in relation to how accurate it is. While Clustering is extremely useful to visualize the pattern which has been investigated in Classification, while also identifying other potential patterns that can exist within the rule set you're trying to establish.
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
+	\\
 
 	\section{Appendix}
-	\figuremacro{h}{appendix1}{Appendix 1}{ - Data Prep, Nominal and Numeric}{1.0}
+	\figuremacro{h}{appendix1}{Appendix 1}{ - Data Prep, Nominal and Numeric}{2.0}
 	\figuremacro{h}{appendix2}{Appendix 2}{ - Data Prep, Nominal attribute value}{1.0}
 	\figuremacro{h}{appendix3}{Appendix 3}{ - Data Prep, Numeric attribute value}{1.0}
 	\figuremacro{h}{appendix4}{Appendix 4}{ - Data Prep, Credit Amount instances}{1.0}
-	\figuremacro{h}{appendix5}{Appendix 5}{ - Data Prep, Nominal txt file}{1.0}
+	\figuremacro{h}{appendix5}{Appendix 5}{ - Data Prep, Nominal txt file}{2.0}
 	\figuremacro{h}{appendix6}{Appendix 6}{ - Classification, Ranked Attributes}{1.0}
 	\figuremacro{h}{appendix7}{Appendix 7}{ - Classification, MinNumObj}{1.0}
 	\figuremacro{h}{appendix8}{Appendix 8}{ - Classification, Instances}{1.0}
 	\figuremacro{h}{appendix9}{Appendix 9}{ - Classification, Confusion Matrix}{1.0}
 	\figuremacro{h}{appendix10}{Appendix 10}{ - Classification, Visualize Tree}{2.0}
-	\figuremacro{h}{appendix11}{Appendix 11}{ - Association, Best Rules}{1.0}
+	\figuremacro{h}{appendix11}{Appendix 11}{ - Association, Best Rules}{2.0}
 	\figuremacro{h}{appendix12}{Appendix 12}{ - Clustering, Number of Clusters}{1.0}
 	\figuremacro{h}{appendix13}{Appendix 13}{ - Clustering, Number of Seeds}{1.0}
 	\figuremacro{h}{appendix14}{Appendix 14}{ - Clustering, Cluster Results}{1.0}
